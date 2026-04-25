@@ -11,26 +11,33 @@
   import PostEditor from './pages/admin/PostEditor.svelte'
   import ProfileEditor from './pages/admin/ProfileEditor.svelte'
 
+  const base = '/bia-blog'
+  
   let path = window.location.pathname
 
   function navigate(to) {
-    window.history.pushState({}, '', to)
-    path = to
+    // Garante que o link comece com a base do GitHub Pages
+    const target = to.startsWith(base) ? to : `${base}${to === '/' ? '' : to}`
+    window.history.pushState({}, '', target)
+    path = window.location.pathname
     window.scrollTo(0, 0)
   }
 
   function parsePath(p) {
-    if (p === '/' || p === '') return { route: 'home' }
-    if (p === '/sobre') return { route: 'about' }
-    if (p === '/login') return { route: 'login' }
-    if (p === '/admin') return { route: 'dashboard' }
-    if (p === '/admin/novo') return { route: 'post-editor', params: {} }
-    if (p === '/admin/perfil') return { route: 'profile-editor' }
+    // Remove a base (/bia-blog) para que o roteador entenda apenas a rota interna
+    const cleanPath = p.replace(base, '') || '/'
 
-    const editMatch = p.match(/^\/admin\/editar\/(.+)$/)
+    if (cleanPath === '/' || cleanPath === '') return { route: 'home' }
+    if (cleanPath === '/sobre') return { route: 'about' }
+    if (cleanPath === '/login') return { route: 'login' }
+    if (cleanPath === '/admin') return { route: 'dashboard' }
+    if (cleanPath === '/admin/novo') return { route: 'post-editor', params: {} }
+    if (cleanPath === '/admin/perfil') return { route: 'profile-editor' }
+
+    const editMatch = cleanPath.match(/^\/admin\/editar\/(.+)$/)
     if (editMatch) return { route: 'post-editor', params: { id: editMatch[1] } }
 
-    const articleMatch = p.match(/^\/artigo\/(.+)$/)
+    const articleMatch = cleanPath.match(/^\/artigo\/(.+)$/)
     if (articleMatch) return { route: 'article', params: { slug: articleMatch[1] } }
 
     return { route: '404' }
@@ -48,7 +55,8 @@
       const a = e.target.closest('[data-link]')
       if (a) {
         e.preventDefault()
-        navigate(a.getAttribute('href') || a.dataset.link)
+        const href = a.getAttribute('href') || a.dataset.link
+        navigate(href)
       }
     })
   })
