@@ -1,7 +1,8 @@
 <script>
   import { createEventDispatcher } from 'svelte'
   import { signIn } from '../../lib/auth.js'
-
+  import logo from '../../assets/logo.svg';
+  
   const dispatch = createEventDispatcher()
 
   let email = ''
@@ -26,7 +27,11 @@
 <div class="min-h-screen bg-stone-50 flex items-center justify-center px-4">
   <div class="w-full max-w-sm">
     <div class="text-center mb-10">
-      <p class="font-serif text-3xl font-semibold text-stone-900 mb-1">psi<span class="text-sage-600">.</span></p>
+      <img 
+        src={logo} 
+        alt="Clube Da Prosa" 
+        class="h-50 w-auto mx-auto mb-2" 
+      />
       <p class="text-stone-500 text-sm">Acesso restrito</p>
     </div>
 
@@ -39,7 +44,7 @@
           bind:value={email}
           required
           autocomplete="email"
-          placeholder="sua@psicologia.com"
+          placeholder="jondoe@email.com"
           class="input-field"
         />
       </div>

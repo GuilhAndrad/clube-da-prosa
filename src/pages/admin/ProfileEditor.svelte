@@ -1,7 +1,6 @@
 <script>
   import { createEventDispatcher, onMount } from 'svelte'
   import { supabase } from '../../lib/supabase.js'
-  // Importação do componente de editor rico
   import RichEditor from '../../components/RichEditor.svelte'
 
   const dispatch = createEventDispatcher()

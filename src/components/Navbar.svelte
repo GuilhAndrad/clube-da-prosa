@@ -1,7 +1,8 @@
 <script>
   import { createEventDispatcher, onMount } from 'svelte'
   import { session } from '../lib/auth.js'
-    import { fade, slide } from 'svelte/transition';
+  import { fade, slide } from 'svelte/transition';
+  import logo from '../assets/logo.svg';
 
   export let path = '/'
 
@@ -36,12 +37,16 @@
 >
   <nav class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
     <!-- Logo -->
-    <button
-      on:click={() => nav('/')}
-      class="font-serif text-xl font-semibold text-stone-900 tracking-tight hover:text-sage-700 transition-colors"
-    >
-      psi<span class="text-sage-600">.</span>
-    </button>
+      <button
+        on:click={() => nav('/')}
+        class="flex items-center transition-opacity hover:opacity-80"
+        >
+        <img 
+          src={logo} 
+          alt="Clube Da Prosa" 
+          class="h-35 w-auto" 
+        />
+      </button>
 
     <!-- Desktop links -->
     <div class="hidden md:flex items-center gap-1">

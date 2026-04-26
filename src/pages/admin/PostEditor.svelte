@@ -4,7 +4,6 @@
   import { session } from '../../lib/auth.js'
   import { slugify } from '../../lib/utils.js'
   import RichEditor from '../../components/RichEditor.svelte'
-
   export let postId = null
 
   const dispatch = createEventDispatcher()

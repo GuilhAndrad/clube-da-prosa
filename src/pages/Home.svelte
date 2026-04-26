@@ -39,9 +39,9 @@
   }
 </script>
 
-<div class="min-h-screen">
+<div class="min-h-screen bg-white">
   {#if loading}
-    <div class="max-w-4xl mx-auto px-6 py-20 space-y-8">
+    <div class="container-main py-20 space-y-8">
       {#each [1,2,3] as _}
         <div class="animate-pulse">
           <div class="h-4 bg-stone-200 rounded w-24 mb-3"></div>
@@ -52,13 +52,19 @@
       {/each}
     </div>
   {:else if !featuredPost && posts.length === 0}
-    <div class="max-w-4xl mx-auto px-6 py-32 text-center">
+    <div class="container-main py-32 text-center">
       {#if profile}
         <div class="mb-8">
           {#if profile.photo_url}
-            <img src={profile.photo_url} alt={profile.name} class="w-20 h-20 rounded-full object-cover mx-auto mb-4 border-2 border-stone-100" />
+            <img 
+              src={profile.photo_url} 
+              alt={profile.name} 
+              class="w-20 h-20 rounded-full object-cover mx-auto mb-4 border-2 border-stone-100" 
+            />
           {/if}
-          <h1 class="font-serif text-3xl font-semibold text-stone-900 mb-3">{profile.name}</h1>
+          <h1 class="font-serif text-3xl font-semibold text-stone-900 mb-3">
+            {profile.name}
+          </h1>
           <div class="text-stone-500 max-w-lg mx-auto leading-relaxed bio-rich-text">
             {@html profile.bio}
           </div>
@@ -69,25 +75,35 @@
   {:else}
     {#if profile}
       <div class="bg-white border-b border-stone-100">
-        <div class="max-w-4xl mx-auto px-6 py-10 flex items-center gap-5">
+        <div class="container-main py-10 flex items-center gap-5">
           {#if profile.photo_url}
-            <img src={profile.photo_url} alt={profile.name} class="w-14 h-14 rounded-full object-cover border-2 border-stone-100 flex-shrink-0" />
+            <img 
+              src={profile.photo_url} 
+              alt={profile.name} 
+              class="w-14 h-14 rounded-full object-cover border-2 border-stone-100 flex-shrink-0" 
+            />
           {/if}
           <div>
-            <p class="text-xs font-medium text-stone-400 uppercase tracking-wider mb-1">Por</p>
-            <h1 class="font-serif text-xl font-semibold text-stone-900">{profile.name}</h1>
+            <p class="text-xs font-medium text-stone-400 uppercase tracking-wider mb-1">
+              Por
+            </p>
+            <h1 class="font-serif text-xl font-semibold text-stone-900">
+              {profile.name}
+            </h1>
             {#if profile.bio}
-              <p class="text-sm text-stone-500 mt-0.5 line-clamp-1">{stripHtml(profile.bio)}</p>
+              <p class="text-sm text-stone-500 mt-0.5 line-clamp-1">
+                {stripHtml(profile.bio)}
+              </p>
             {/if}
           </div>
         </div>
       </div>
     {/if}
 
-    <div class="max-w-4xl mx-auto px-6">
+    <div class="container-main">
       {#if featuredPost}
-        <div class="py-12 border-b border-stone-100">
-          <p class="text-xs font-medium text-stone-400 uppercase tracking-wider mb-6">Artigo em destaque</p>
+        <div class="section">
+          <h2 class="section-title">Artigo em destaque</h2>
           <div
             class="group cursor-pointer"
             on:click={() => dispatch('navigate', `/artigo/${featuredPost.slug}`)}
@@ -109,7 +125,9 @@
               {featuredPost.title}
             </h2>
             {#if featuredPost.excerpt}
-              <p class="text-stone-500 text-lg leading-relaxed mb-5 max-w-2xl">{featuredPost.excerpt}</p>
+              <p class="text-stone-500 text-lg leading-relaxed mb-5 max-w-2xl">
+                {featuredPost.excerpt}
+              </p>
             {/if}
             <span class="text-sage-600 font-medium hover:underline">Ler artigo completo →</span>
           </div>
@@ -117,9 +135,9 @@
       {/if}
 
       {#if posts.length > 0}
-        <div class="py-12">
-          <p class="text-xs font-medium text-stone-400 uppercase tracking-wider mb-8">Artigos recentes</p>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div class="section">
+          <h2 class="section-title">Artigos recentes</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
             {#each posts as post (post.id)}
               <PostCard {post} on:navigate={handleNavigate} />
             {/each}

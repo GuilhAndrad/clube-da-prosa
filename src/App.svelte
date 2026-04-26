@@ -10,6 +10,7 @@
   import Dashboard from './pages/admin/Dashboard.svelte'
   import PostEditor from './pages/admin/PostEditor.svelte'
   import ProfileEditor from './pages/admin/ProfileEditor.svelte'
+  import AccessDenied from './components/AccessDenied.svelte'
 
   const base = '/bia-blog'
   
@@ -77,41 +78,46 @@
 
   {#key path}
   <div class="fade-in">
-    {#if parsed.route === 'home'}
-      <Home on:navigate={handleNavigate} />
-    {:else if parsed.route === 'about'}
-      <About on:navigate={handleNavigate} />
-    {:else if parsed.route === 'article'}
-      <Article slug={parsed.params?.slug} on:navigate={handleNavigate} />
-    {:else if parsed.route === 'login'}
-      <Login on:navigate={handleNavigate} />
-    {:else if parsed.route === 'dashboard'}
-      {#if $session}
-        <Dashboard on:navigate={handleNavigate} />
-      {:else}
-        <Login on:navigate={handleNavigate} />
-      {/if}
-    {:else if parsed.route === 'post-editor'}
-      {#if $session}
-        <PostEditor postId={parsed.params?.id} on:navigate={handleNavigate} />
-      {:else}
-        <Login on:navigate={handleNavigate} />
-      {/if}
-    {:else if parsed.route === 'profile-editor'}
-      {#if $session}
-        <ProfileEditor on:navigate={handleNavigate} />
-      {:else}
-        <Login on:navigate={handleNavigate} />
-      {/if}
+  {#if parsed.route === 'home'}
+    <Home on:navigate={handleNavigate} />
+  {:else if parsed.route === 'about'}
+    <About on:navigate={handleNavigate} />
+  {:else if parsed.route === 'article'}
+    <Article slug={parsed.params?.slug} on:navigate={handleNavigate} />
+  {:else if parsed.route === 'login'}
+    <Login on:navigate={handleNavigate} />
+
+  {:else if parsed.route === 'dashboard'}
+    {#if $session}
+      <Dashboard on:navigate={handleNavigate} />
     {:else}
-      <div class="min-h-screen flex items-center justify-center">
-        <div class="text-center px-4">
-          <p class="text-8xl font-serif text-stone-200 mb-4">404</p>
-          <p class="text-stone-500 mb-6 font-sans">Página não encontrada.</p>
-          <button class="btn-primary" on:click={() => navigate('/')}>Voltar ao início</button>
-        </div>
-      </div>
+      <AccessDenied on:navigate={handleNavigate} />
     {/if}
+
+  {:else if parsed.route === 'post-editor'}
+    {#if $session}
+      <PostEditor postId={parsed.params?.id} on:navigate={handleNavigate} />
+    {:else}
+      <AccessDenied on:navigate={handleNavigate} />
+    {/if}
+
+  {:else if parsed.route === 'profile-editor'}
+    {#if $session}
+      <ProfileEditor on:navigate={handleNavigate} />
+    {:else}
+      <AccessDenied on:navigate={handleNavigate} />
+    {/if}
+
+  {:else}
+    <!-- 404 AQUI -->
+    <div class="min-h-screen flex items-center justify-center">
+      <div class="text-center px-4">
+        <p class="text-8xl font-serif text-stone-200 mb-4">404</p>
+        <p class="text-stone-500 mb-6 font-sans">Página não encontrada.</p>
+        <button class="btn-primary" on:click={() => navigate('/')}>Voltar ao início</button>
+      </div>
+    </div>
+  {/if}
   </div>
   {/key}
 

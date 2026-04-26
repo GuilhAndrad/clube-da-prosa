@@ -32,9 +32,6 @@
               alt={profile.name}
               class="w-28 h-28 rounded-full object-cover border-4 border-white shadow-md"
             />
-            <span class="absolute -bottom-1 -right-1 bg-sage-100 text-sage-700 text-xs font-medium px-2 py-0.5 rounded-full border border-sage-200">
-              Psicóloga
-            </span>
           </div>
         {/if}
         <h1 class="font-serif text-3xl font-semibold text-stone-900 mb-2">{profile.name}</h1>

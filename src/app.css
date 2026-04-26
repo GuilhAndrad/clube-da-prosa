@@ -104,7 +104,106 @@
     @apply bg-white rounded-2xl border border-stone-100 shadow-sm;
   }
 }
+/* 5.1 Classes de Container */
+.container-main {
+  @apply max-w-4xl mx-auto px-6;
+}
 
+.container-wide {
+  @apply max-w-5xl mx-auto px-6;
+}
+
+.container-full {
+  @apply w-full px-6;
+}
+
+/* 5.2 Classes de Seção */
+.section {
+  @apply py-12 border-b border-stone-100;
+}
+
+.section:last-child {
+  @apply border-b-0;
+}
+
+.section-title {
+  @apply text-xs font-medium text-stone-400 uppercase tracking-wider mb-8;
+}
+
+.section-subtitle {
+  @apply text-sm font-medium text-stone-600 mb-4;
+}
+
+/* 5.3 Classes de Forma */
+.form-group {
+  @apply mb-6;
+}
+
+.form-label {
+  @apply block text-sm font-medium text-stone-700 mb-2;
+}
+
+.form-hint {
+  @apply text-xs text-stone-500 mt-1;
+}
+
+.form-error {
+  @apply text-xs text-red-600 mt-1 font-medium;
+}
+
+.input-field {
+  @apply w-full px-4 py-3 rounded-lg border border-stone-200 bg-white 
+         text-stone-800 text-sm transition-all duration-200
+         focus:outline-none focus:ring-2 focus:ring-sage-500 
+         focus:ring-offset-2 focus:border-transparent;
+}
+
+.input-field:disabled {
+  @apply bg-stone-50 text-stone-400 cursor-not-allowed;
+}
+
+/* 5.4 Utilitários */
+.text-muted {
+  @apply text-stone-400;
+}
+
+.text-success {
+  @apply text-sage-600;
+}
+
+.text-error {
+  @apply text-red-600;
+}
+
+.text-warning {
+  @apply text-amber-600;
+}
+
+/* 5.5 Badge/Status */
+.badge {
+  @apply inline-block px-3 py-1 rounded-full text-xs font-semibold;
+}
+
+.badge-primary {
+  @apply bg-sage-100 text-sage-700;
+}
+
+.badge-secondary {
+  @apply bg-stone-100 text-stone-700;
+}
+
+.badge-draft {
+  @apply bg-blush-100 text-blush-700;
+}
+
+/* 5.6 Responsive Utilities */
+.hide-mobile {
+  @apply hidden md:block;
+}
+
+.hide-desktop {
+  @apply block md:hidden;
+}
 /* 6. Animações */
 .fade-in {
   animation: fadeIn 0.3s ease-out;
@@ -113,6 +212,15 @@
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+.btn-ghost {
+  @apply px-2 py-2 rounded-lg text-sm font-medium transition-all duration-200 
+         hover:bg-stone-100 text-stone-600 hover:text-stone-900;
+}
+
+.btn-ghost:active {
+  @apply scale-95;
 }
 
 /* 7. Scrollbar Customizada */
