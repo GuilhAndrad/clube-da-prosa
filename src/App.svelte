@@ -12,23 +12,28 @@
   import ProfileEditor from './pages/admin/ProfileEditor.svelte'
   import AccessDenied from './components/AccessDenied.svelte'
 
-  const base = '/clube-da-prosa'
+  // Pega a base automaticamente do vite.config.js e remove a barra final se existir
+  const base = import.meta.env.BASE_URL.replace(/\/$/, '') || '';
   
   let path = window.location.pathname
 
   function navigate(to) {
-    // Garante que o link comece com a base do GitHub Pages
-    const target = to.startsWith(base) ? to : `${base}${to === '/' ? '' : to}`
+    // Garante que o link comece com a base do GitHub Pages sem duplicar barras
+    const target = to === '/' ? (base || '/') : `${base}${to.startsWith('/') ? to : '/' + to}`
     window.history.pushState({}, '', target)
     path = window.location.pathname
     window.scrollTo(0, 0)
   }
 
   function parsePath(p) {
-    // Remove a base (/bia-blog) para que o roteador entenda apenas a rota interna
-    const cleanPath = p.replace(base, '') || '/'
+    // Remove a base da URL atual
+    let cleanPath = p.replace(base, '') || '/';
+    
+    // Garante que o caminho comece com / e não termine com / (exceto a rota raiz)
+    if (!cleanPath.startsWith('/')) cleanPath = '/' + cleanPath;
+    if (cleanPath.length > 1 && cleanPath.endsWith('/')) cleanPath = cleanPath.slice(0, -1);
 
-    if (cleanPath === '/' || cleanPath === '') return { route: 'home' }
+    if (cleanPath === '/') return { route: 'home' }
     if (cleanPath === '/sobre') return { route: 'about' }
     if (cleanPath === '/login') return { route: 'login' }
     if (cleanPath === '/admin') return { route: 'dashboard' }
@@ -109,7 +114,6 @@
     {/if}
 
   {:else}
-    <!-- 404 AQUI -->
     <div class="min-h-screen flex items-center justify-center">
       <div class="text-center px-4">
         <p class="text-8xl font-serif text-stone-200 mb-4">404</p>
