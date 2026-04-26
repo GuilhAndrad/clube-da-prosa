@@ -12,7 +12,7 @@
   import ProfileEditor from './pages/admin/ProfileEditor.svelte'
   import AccessDenied from './components/AccessDenied.svelte'
 
-  const base = '/bia-blog'
+  const base = '/clube-da-prosa'
   
   let path = window.location.pathname
 

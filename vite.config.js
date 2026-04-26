@@ -3,6 +3,6 @@ import { svelte } from '@sveltejs/vite-plugin-svelte'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/clube-da-prosa/', // O nome do seu repo
+  base: '/clube-da-prosa/', 
   plugins: [svelte()],
 })
